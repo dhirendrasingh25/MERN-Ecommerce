@@ -125,7 +125,7 @@ export function Cart() {
                     className="font-medium text-indigo-600 hover:text-indigo-500 p-2"
                     onClick={() => setOpen(false)}
                   >
-                    Continue Shopping
+                    Continue Shopping Now
                     <span aria-hidden="true"> &rarr;</span>
                   </button>
                 </Link>
