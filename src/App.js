@@ -1,7 +1,7 @@
 import React from "react";
 import { Counter } from "./features/counter/Counter";
 import "./App.css";
-import ProductList from "./features/product-list/ProductList";
+import ProductList from "./features/product-list/components/ProductList";
 import Navbar from "./features/navbar/Navbar";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
@@ -15,6 +15,7 @@ import {
   Link,
 } from "react-router-dom";
 import Checkout from "./pages/CheckOut";
+import ProductDetails from "./features/product-list/components/ProductDetails";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/checkout",
     element: <Checkout />,
+  },
+  {
+    path: "/product-detail",
+    element: <ProductDetails />,
   },
 ]);
 
