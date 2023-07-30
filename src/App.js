@@ -15,7 +15,7 @@ import {
   Link,
 } from "react-router-dom";
 import Checkout from "./pages/CheckOut";
-import ProductDetails from "./features/product-list/components/ProductDetails";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/product-detail",
-    element: <ProductDetails />,
+    element: <ProductDetailPage />,
   },
 ]);
 
