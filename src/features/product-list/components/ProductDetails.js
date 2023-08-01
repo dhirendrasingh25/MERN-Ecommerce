@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const product = {
   name: "Basic Tee 6-Pack",
-  price: "$192",
+  price: "Rs.192",
   href: "#",
   breadcrumbs: [
     { id: 1, name: "Men", href: "#" },
