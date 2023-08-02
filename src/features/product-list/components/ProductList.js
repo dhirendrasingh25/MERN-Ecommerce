@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAllProductsAsync, selectAllProducts } from "../ProductListSlice";
+import {
+  fetchAllProductsAsync,
+  selectAllProducts,
+  fetchAllProductsByFiltersAsync,
+} from "../ProductListSlice";
 import { Fragment } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -194,7 +198,14 @@ export default function ProductList() {
   //const count = useSelector(selectCount);
   const dispatch = useDispatch();
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [filter, setFilter] = useState({});
 
+  const handleFilter = (e, section, option) => {
+    const newFilter = { ...filter, [section.id]: option.value };
+    setFilter(newFilter);
+    dispatch(fetchAllProductsByFiltersAsync(newFilter));
+    console.log(section.id, option.value);
+  };
   const products = useSelector(selectAllProducts);
   useEffect(() => {
     dispatch(fetchAllProductsAsync());
@@ -291,6 +302,9 @@ export default function ProductList() {
                                       name={`${section.id}[]`}
                                       defaultValue={option.value}
                                       type="checkbox"
+                                      onChange={(e) =>
+                                        handleFilter(e, section, option)
+                                      }
                                       defaultChecked={option.checked}
                                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                     />
@@ -435,6 +449,9 @@ export default function ProductList() {
                                   name={`${section.id}[]`}
                                   defaultValue={option.value}
                                   type="checkbox"
+                                  onChange={(e) =>
+                                    handleFilter(e, section, option)
+                                  }
                                   defaultChecked={option.checked}
                                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                 />
