@@ -221,6 +221,7 @@ function MobileFilter({
   mobileFiltersOpen,
   setMobileFiltersOpen,
   handleFilter,
+  filters,
 }) {
   return (
     <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -335,7 +336,7 @@ function MobileFilter({
   );
 }
 
-function DesktopFilter({ handleFilter }) {
+function DesktopFilter({ handleFilter, filters }) {
   return (
     <form className="hidden lg:block">
       {filters.map((section) => (
