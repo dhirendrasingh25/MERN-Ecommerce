@@ -7,7 +7,7 @@ export function fetchAllProducts() {
   });
 }
 
-export function fetchProductsByFilters(filter) {
+export function fetchProductsByFilters(filter, sort, pagination) {
   //filter ={category : snartphone}
 
   let queryString = "";
@@ -15,11 +15,19 @@ export function fetchProductsByFilters(filter) {
   for (let key in filter) {
     queryString += `${key}=${filter[key]}&`;
   }
+  for (let key in sort) {
+    queryString += `${key}=${sort[key]}&`;
+  }
+  console.log(pagination);
+  for (let key in pagination) {
+    queryString += `${key}=${pagination[key]}&`;
+  }
   return new Promise(async (resolve) => {
     const response = await fetch(
       "http://localhost:8080/products?" + queryString
     );
     const data = await response.json();
-    resolve({ data });
+    const totalItems = await response.headers.get("X-Total-Count");
+    resolve({ data: { products: data, totalItems: +totalItems } });
   });
 }
