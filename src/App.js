@@ -16,11 +16,16 @@ import {
 } from "react-router-dom";
 import Checkout from "./pages/CheckOut";
 import ProductDetailPage from "./pages/ProductDetailPage";
+import Protected from "./features/auth/components/protected";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home></Home>,
+    element: (
+      <Protected>
+        <Home></Home>,
+      </Protected>
+    ),
   },
   {
     path: "/login",
@@ -32,15 +37,27 @@ const router = createBrowserRouter([
   },
   {
     path: "/cart",
-    element: <Cart></Cart>,
+    element: (
+      <Protected>
+        <Cart></Cart>
+      </Protected>
+    ),
   },
   {
     path: "/checkout",
-    element: <Checkout />,
+    element: (
+      <Protected>
+        <Checkout />
+      </Protected>
+    ),
   },
   {
     path: "/product-detail/:id",
-    element: <ProductDetailPage />,
+    element: (
+      <Protected>
+        <ProductDetailPage />
+      </Protected>
+    ),
   },
 ]);
 
