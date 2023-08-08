@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 //import { increment, incrementAsync, selectCount } from "../authSlice";
 import { Link } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { selectLoggedInUser, createUserAsync } from "../authSlice";
 
 export function Signup() {
   const dispatch = useDispatch();
@@ -30,6 +31,9 @@ export function Signup() {
         <form
           className="space-y-6"
           onSubmit={handleSubmit((data) => {
+            dispatch(
+              createUserAsync({ email: data.email, password: data.password })
+            );
             console.log(data);
           })}
           method="POST"
