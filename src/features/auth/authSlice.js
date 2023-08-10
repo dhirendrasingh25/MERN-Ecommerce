@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export const createUserAsync = createAsyncThunk(
-  "counter/createUser",
+  "user/createUser",
   async (userData) => {
     const response = await createUser(userData);
     // The value we return becomes the `fulfilled` action payload
@@ -17,7 +17,7 @@ export const createUserAsync = createAsyncThunk(
   }
 );
 export const checkUserAsync = createAsyncThunk(
-  "counter/checkUser",
+  "user/checkUser",
   async (loginInfo) => {
     const response = await checkUser(loginInfo);
     // The value we return becomes the `fulfilled` action payload
@@ -39,14 +39,18 @@ export const authSlice = createSlice({
       })
       .addCase(createUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.loggedInUser += action.payload;
+        state.loggedInUser = action.payload;
       })
       .addCase(checkUserAsync.pending, (state) => {
         state.status = "loading";
       })
       .addCase(checkUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.error += action.error;
+        state.loggedInUser += action.payload;
+      })
+      .addCase(checkUserAsync.rejected, (state, action) => {
+        state.status = "idle";
+        state.error = action.error;
       });
   },
 });
