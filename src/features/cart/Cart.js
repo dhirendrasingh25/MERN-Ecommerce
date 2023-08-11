@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, incrementAsync, selectCount } from "./cartSlice";
+import { selectItems } from "./cartSlice";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -34,7 +34,7 @@ const products = [
   // More products...
 ];
 export function Cart() {
-  const count = useSelector(selectCount);
+  const count = useSelector();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
 
