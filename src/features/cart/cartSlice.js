@@ -14,6 +14,7 @@ export const addToCartAsync = createAsyncThunk(
     return response.data;
   }
 );
+
 export const fetchItemsByUserIdAsync = createAsyncThunk(
   "cart/fetchItemsByUserId",
   async (userId) => {
@@ -22,7 +23,8 @@ export const fetchItemsByUserIdAsync = createAsyncThunk(
     return response.data;
   }
 );
-export const cartSlice = createSlice({
+
+export const counterSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
@@ -49,6 +51,8 @@ export const cartSlice = createSlice({
   },
 });
 
+export const { increment } = counterSlice.actions;
+
 export const selectItems = (state) => state.cart.items;
 
-export default cartSlice.reducer;
+export default counterSlice.reducer;
