@@ -1,37 +1,13 @@
 import React, { useState, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, incrementAsync, selectItems } from "./cartSlice";
+import {
+  deleteItemFromCartAsync,
+  selectItems,
+  updateCartAsync,
+} from "./cartSlice";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-
-const products = [
-  {
-    id: 1,
-    name: "Throwback Hip Bag",
-    href: "#",
-    color: "Salmon",
-    price: "$90.00",
-    quantity: 1,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg",
-    imageAlt:
-      "Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.",
-  },
-  {
-    id: 2,
-    name: "Medium Stuff Satchel",
-    href: "#",
-    color: "Blue",
-    price: "$32.00",
-    quantity: 1,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-    imageAlt:
-      "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
-  },
-  // More products...
-];
 
 export function Cart() {
   const dispatch = useDispatch();
@@ -44,6 +20,14 @@ export function Cart() {
   );
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
 
+  const handleQuantity = (e, item) => {
+    dispatch(updateCartAsync({ ...item, quantity: +e.target.value }));
+  };
+
+  const handleRemove = (e, id) => {
+    dispatch(deleteItemFromCartAsync(id));
+  };
+
   return (
     <>
       <div>
@@ -54,12 +38,12 @@ export function Cart() {
             </h1>
             <div className="flow-root">
               <ul role="list" className="-my-6 divide-y divide-gray-200">
-                {items.map((product) => (
-                  <li key={product.id} className="flex py-6">
+                {items.map((item) => (
+                  <li key={item.id} className="flex py-6">
                     <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                       <img
-                        src={product.thumbnail}
-                        alt={product.title}
+                        src={item.thumbnail}
+                        alt={item.title}
                         className="h-full w-full object-cover object-center"
                       />
                     </div>
@@ -68,12 +52,12 @@ export function Cart() {
                       <div>
                         <div className="flex justify-between text-base font-medium text-gray-900">
                           <h3>
-                            <a href={product.href}>{product.title}</a>
+                            <a href={item.href}>{item.title}</a>
                           </h3>
-                          <p className="ml-4">${product.price}</p>
+                          <p className="ml-4">${item.price}</p>
                         </div>
                         <p className="mt-1 text-sm text-gray-500">
-                          {product.brand}
+                          {item.brand}
                         </p>
                       </div>
                       <div className="flex flex-1 items-end justify-between text-sm">
@@ -84,14 +68,21 @@ export function Cart() {
                           >
                             Qty
                           </label>
-                          <select>
+                          <select
+                            onChange={(e) => handleQuantity(e, item)}
+                            value={item.quantity}
+                          >
                             <option value="1">1</option>
                             <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
                           </select>
                         </div>
 
                         <div className="flex">
                           <button
+                            onClick={(e) => handleRemove(e, item.id)}
                             type="button"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
                           >
@@ -132,7 +123,7 @@ export function Cart() {
                 <Link to="/">
                   <button
                     type="button"
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                    className="font-medium text-indigo-600 hover:text-indigo-500 p-2"
                   >
                     Continue Shopping
                     <span aria-hidden="true"> &rarr;</span>
