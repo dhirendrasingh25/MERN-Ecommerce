@@ -17,7 +17,7 @@ export const createOrderAsync = createAsyncThunk(
   }
 );
 
-export const counterSlice = createSlice({
+export const orderSlice = createSlice({
   name: "order",
   initialState,
   reducers: {
@@ -33,7 +33,7 @@ export const counterSlice = createSlice({
       .addCase(createOrderAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.orders.push(action.payload);
-        currentOrder = action.payload;
+        state.currentOrder = action.payload;
       });
   },
 });
