@@ -1051,11 +1051,13 @@
     {
       "email": "dhirendrasingh@gmail.com",
       "password": "Mummy$123",
+      "addresses": [],
       "id": 1
     },
     {
       "email": "sameer@gmail.com",
       "password": "Mummy$123",
+      "addresses": [],
       "id": 2
     }
   ],
