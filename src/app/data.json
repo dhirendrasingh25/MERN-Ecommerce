@@ -1049,22 +1049,14 @@
   ],
   "users": [
     {
+      "name":"dhirendra",
       "email": "dhirendrasingh@gmail.com",
       "password": "Mummy$123",
-      "addresses": [
-        {
-          "name": "dhirendra",
-          "email": "dhirendrasingh@gmail.com",
-          "phone": "8698867967",
-          "street": "Thakur Village Kandivali East",
-          "city": "mumbai",
-          "state": "maharashtra",
-          "pinCode": "401101"
-        }
-      ],
+      "addresses": [],
       "id": 1
     },
     {
+      "name":"sameer",
       "email": "sameer@gmail.com",
       "password": "Mummy$123",
       "addresses": [],
