@@ -23,7 +23,7 @@ import { selectLoggedInUser } from "./features/auth/authSlice";
 import PageNotFound from "./pages/404";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
 import UserOrdersPage from "./pages/UserOrdersPage";
-
+import UserProfilePage from "./pages/UserProfilePage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -75,6 +75,10 @@ const router = createBrowserRouter([
       <UserOrdersPage></UserOrdersPage>
       // we will add Page later right now using component directly.
     ),
+  },
+  {
+    path: "/profile",
+    element: <UserProfilePage></UserProfilePage>,
   },
   {
     path: "*",
