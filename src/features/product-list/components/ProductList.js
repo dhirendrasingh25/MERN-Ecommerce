@@ -9,6 +9,7 @@ import {
   fetchCategoriesAsync,
   selectBrands,
   selectCategories,
+  selectProductListStatus,
 } from "../ProductListSlice";
 import { Fragment } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
@@ -24,6 +25,7 @@ import {
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
 import { ITEMS_PER_PAGE } from "../../../app/constants";
+import { Grid } from "react-loader-spinner";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -42,6 +44,8 @@ export default function ProductList() {
   const totalItems = useSelector(selectTotalItems);
   const brands = useSelector(selectBrands);
   const categories = useSelector(selectCategories);
+
+  const status = useSelector(selectProductListStatus);
   const filters = [
     {
       id: "category",
@@ -201,7 +205,7 @@ export default function ProductList() {
               ></DesktopFilter>
               {/* Product grid */}
               <div className="lg:col-span-3">
-                <ProductGrid products={products}></ProductGrid>
+                <ProductGrid products={products} status={status}></ProductGrid>
               </div>
               {/* Product grid end */}
             </div>
@@ -471,11 +475,23 @@ function Pagination({ page, setPage, handlePage, totalItems }) {
   );
 }
 
-function ProductGrid({ products }) {
+function ProductGrid({ products, status }) {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+          {status === "loading" ? (
+            <Grid
+              height="80"
+              width="80"
+              color="rgb(79, 70, 229) "
+              ariaLabel="grid-loading"
+              radius="12.5"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+            />
+          ) : null}
           {products &&
             products.map((product) => (
               <Link to={`/product-detail/${product.id}`} key={product.id}>
@@ -515,6 +531,11 @@ function ProductGrid({ products }) {
                       </p>
                     </div>
                   </div>
+                  {product.stock <= 0 && (
+                    <div>
+                      <p className="text-sm text-red-400">out of stock</p>
+                    </div>
+                  )}
                 </div>
               </Link>
             ))}
