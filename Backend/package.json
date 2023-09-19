@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
@@ -12,6 +13,6 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "mongoose": "^7.5.1"
+    "mongoose": "^7.5.2"
   }
 }
