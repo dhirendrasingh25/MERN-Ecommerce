@@ -4,11 +4,11 @@ const mongoose = require("mongoose");
 const productRouters = require("./routes/Product");
 const categoriesRouter = require("./routes/Category");
 const brandsRouter = require("./routes/Brand");
-
-const cors = require("cors");
+const usersRouter = require("./routes/Users");
+const authRouter = require("./routes/Auth");
 
 //middlewares
-
+const cors = require("cors");
 server.use(
   cors({
     exposedHeaders: ["X-Total-Count"],
@@ -20,6 +20,8 @@ server.use(express.json()); // to parse req.body
 server.use("/products", productRouters.router);
 server.use("/categories", categoriesRouter.router);
 server.use("/brands", brandsRouter.router);
+server.use("/users", usersRouter.router);
+server.use("/auth", authRouter.router);
 
 main().catch((err) => console.log(err));
 
